@@ -17,16 +17,16 @@ namespace Real_time_weather_monitoring_and_reporting_service.Bots
             message = message;
         }
 
-        public void Activate(WeatherData data)  
+        public void ActivateBot(WeatherInputData data)  
         {
             if (IsActivated(data))
             {
-                Console.WriteLine("SnowBot activated!");
+                Console.WriteLine("SnowBot is activated!");
                 Console.WriteLine(message);
             }
         }
 
-        public bool IsActivated(WeatherData data)
+        public bool IsActivated(WeatherInputData data)
         {
             return data.Temperature < temperatureThreshold;
         }

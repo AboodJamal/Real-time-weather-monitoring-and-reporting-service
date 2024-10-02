@@ -1,2 +1,43 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Real_time_weather_monitoring_and_reporting_service.Bots;
+using Real_time_weather_monitoring_and_reporting_service;
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        List<IWeatherBot> bots = BotsFactory.CreateBots("botConfigFile.json");
+        Console.WriteLine("Enter weather data (only JSON or XML format) or press Enter to read from a file:");
+        string inputData = Console.ReadLine(); 
+
+        if (string.IsNullOrWhiteSpace(inputData))
+        {
+            Console.WriteLine("Enter the file path (only JSON or XML format):");
+            string filePath = Console.ReadLine();
+            try
+            {
+                inputData = File.ReadAllText(filePath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading file: {ex.Message}");
+                return; 
+            }
+        }
+
+        try
+        {
+            WeatherInputData inputDataOfWeather = DataInputParser.ParseData(inputData);
+
+            foreach (IWeatherBot bot in bots)
+            {
+                bot.ActivateBot(inputDataOfWeather); 
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An Error occurred: {ex}");
+        }
+    }
+}

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Real_time_weather_monitoring_and_reporting_service
 {
-    public class WeatherData
+    public class WeatherInputData
     {
         public string Location { get; set; }
         public double Temperature { get; set; }

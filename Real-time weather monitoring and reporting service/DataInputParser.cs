@@ -11,19 +11,19 @@ namespace Real_time_weather_monitoring_and_reporting_service
 {
     public class DataInputParser
     {
-        public static WeatherData ParseData(string data)
+        public static WeatherInputData ParseData(string data)
         {
             try
             {
-                var jsonWeatherData = JsonSerializer.Deserialize<WeatherData>(data);
+                var jsonWeatherData = JsonSerializer.Deserialize<WeatherInputData>(data);
                 return jsonWeatherData;
             }
-            catch (Exception ex)
+            catch (JsonException)
             {
                 try
                 {
                     var xmlFile = XDocument.Parse(data);
-                    var xmlWeatherData = new WeatherData
+                    var xmlWeatherData = new WeatherInputData
                     {
                         Location = xmlFile.Root.Element("Location").Value,
                         Temperature = double.Parse(xmlFile.Root.Element("Temperature").Value),

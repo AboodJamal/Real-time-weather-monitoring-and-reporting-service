@@ -17,7 +17,7 @@ namespace Real_time_weather_monitoring_and_reporting_service.Bots
             this.message = message;
         }
 
-        public void Activate(WeatherData data)
+        public void ActivateBot(WeatherInputData data)
         {
             if (IsActivated(data))
             {
@@ -26,7 +26,7 @@ namespace Real_time_weather_monitoring_and_reporting_service.Bots
             }
         }
 
-        public bool IsActivated(WeatherData data)
+        public bool IsActivated(WeatherInputData data)
         {
             return data.Humidity > this.humidityThreshold;
         }
