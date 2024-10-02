@@ -17,7 +17,7 @@ namespace Real_time_weather_monitoring_and_reporting_service.Bots
             message = message;
         }
 
-        public void Activate(WeatherData data)
+        public void Activate(WeatherData data)  
         {
             if (IsActivated(data))
             {
