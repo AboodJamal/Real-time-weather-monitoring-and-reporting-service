@@ -7,7 +7,15 @@ class Program
 {
     static void Main(string[] args)
     {
+        WeatherPublisher publisher = new WeatherPublisher();
+
+
         List<IWeatherBot> bots = BotsFactory.CreateBots("botConfigFile.json");
+        foreach (var bot in bots)
+        {
+            publisher.RegisterObserver(bot);
+        }
+
         Console.WriteLine("Enter weather data (only JSON or XML format) or press Enter to read from a file:");
         string inputData = Console.ReadLine(); 
 
@@ -30,10 +38,8 @@ class Program
         {
             WeatherInputData inputDataOfWeather = DataInputParser.ParseData(inputData);
 
-            foreach (IWeatherBot bot in bots)
-            {
-                bot.ActivateBot(inputDataOfWeather); 
-            }
+            publisher.NotifyObservers(inputDataOfWeather);
+
         }
         catch (Exception ex)
         {
