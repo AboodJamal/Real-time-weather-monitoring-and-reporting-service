@@ -19,6 +19,11 @@ namespace Real_time_weather_monitoring_and_reporting_service
 
         public void RegisterObserver(IWeatherBot observer)
         {
+            if (observer == null)
+            {
+                throw new ArgumentNullException(nameof(observer), "Observer must not be null");
+            }
+
             observers.Add(observer);
         }
 
