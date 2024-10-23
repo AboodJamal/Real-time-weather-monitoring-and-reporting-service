@@ -10,7 +10,7 @@ class Program
         WeatherPublisher publisher = new WeatherPublisher();
 
 
-        List<IWeatherBot> bots = BotsFactory.CreateBots("botConfigFile.json");
+        List<IWeatherBotObserver> bots = BotsFactory.CreateBots("botConfigFile.json");
         foreach (var bot in bots)
         {
             publisher.RegisterObserver(bot);
@@ -36,7 +36,7 @@ class Program
 
         try
         {
-            WeatherInputData inputDataOfWeather = DataInputParser.ParseData(inputData);
+            WeatherData inputDataOfWeather = DataInputParser.ParseData(inputData);
 
             publisher.NotifyObservers(inputDataOfWeather);
 

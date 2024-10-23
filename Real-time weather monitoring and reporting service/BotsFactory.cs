@@ -11,9 +11,9 @@ namespace Real_time_weather_monitoring_and_reporting_service
 {
     public class BotsFactory
     {
-        public static List<IWeatherBot> CreateBots(string configFilePath)
+        public static List<IWeatherBotObserver> CreateBots(string configFilePath)
         {
-            var bots = new List<IWeatherBot>();
+            var bots = new List<IWeatherBotObserver>();
             var configText = File.ReadAllText(configFilePath);
             var config = JsonSerializer.Deserialize<WeatherBotConfiguration>(configText); // properties has to be exactly same as the keys in json
 

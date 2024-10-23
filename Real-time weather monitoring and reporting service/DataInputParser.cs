@@ -11,11 +11,11 @@ namespace Real_time_weather_monitoring_and_reporting_service
 {
     public class DataInputParser
     {
-        public static WeatherInputData ParseData(string data)
+        public static WeatherData ParseData(string data)
         {
             try
             {
-                var jsonWeatherData = JsonSerializer.Deserialize<WeatherInputData>(data);
+                var jsonWeatherData = JsonSerializer.Deserialize<WeatherData>(data);
                 return jsonWeatherData;
             }
             catch (JsonException)
@@ -23,7 +23,7 @@ namespace Real_time_weather_monitoring_and_reporting_service
                 try
                 {
                     var xmlFile = XDocument.Parse(data);
-                    var xmlWeatherData = new WeatherInputData
+                    var xmlWeatherData = new WeatherData
                     {
                         Location = xmlFile.Root.Element("Location").Value,
                         Temperature = double.Parse(xmlFile.Root.Element("Temperature").Value),

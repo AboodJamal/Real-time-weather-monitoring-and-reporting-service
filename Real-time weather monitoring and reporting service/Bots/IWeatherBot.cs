@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Real_time_weather_monitoring_and_reporting_service.Bots
 {
-    public interface IWeatherBot
+    public interface IWeatherBotObserver
     {
-        void ActivateBot(WeatherInputData data);
-        bool IsActivated(WeatherInputData data);
+        void Update(WeatherData data);
+        bool IsActivated(WeatherData data);
     }
 }

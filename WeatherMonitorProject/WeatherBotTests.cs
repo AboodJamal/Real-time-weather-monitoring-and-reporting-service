@@ -9,101 +9,105 @@ public class WeatherBotTests
     [Fact]
     public void RainBot_ShouldPrintMessage_WhenHumidityIsAboveThreshold()
     {
-        var data = new WeatherInputData { Humidity = 80 };
+        // Arrange
+        var data = new WeatherData { Humidity = 80 };
         var rainBot = new RainBot(70, "It's raining!");
 
-        
+        // Act
         using (var sw = new StringWriter())
         {
             Console.SetOut(sw);
-            rainBot.ActivateBot(data);
+            rainBot.Update(data);
 
-            
             var output = sw.ToString().Trim();
+
+            // Assert
             Assert.Contains("RainBot is activated", output);
             Assert.Contains("It's raining!", output);
         }
     }
 
     [Fact]
-    public void RainBot_ShouldReturnTrue_WhenHumidityIsAboveThreshold()
+    public void RainBot_ShouldBeActivated_WhenHumidityIsAboveThreshold()
     {
-       
-        var data = new WeatherInputData { Humidity = 80 };
+        // Arrange
+        var data = new WeatherData { Humidity = 80 };
         var rainBot = new RainBot(70, "It's raining!");
 
-        
+        // Act
         var result = rainBot.IsActivated(data);
 
-        
+        // Assert
         Assert.True(result);
     }
 
     [Fact]
     public void SnowBot_ShouldPrintMessage_WhenTemperatureIsBelowThreshold()
     {
-
-        var data = new WeatherInputData { Temperature = -5 };
+        // Arrange
+        var data = new WeatherData { Temperature = -5 };
         var snowBot = new SnowBot(0, "It's snowing!");
 
         // Act
         using (var sw = new StringWriter())
         {
             Console.SetOut(sw);
-            snowBot.ActivateBot(data);
+            snowBot.Update(data);
 
-            
             var output = sw.ToString().Trim();
 
+            // Assert
             Assert.Contains("SnowBot is activated", output);
         }
     }
 
     [Fact]
-    public void SnowBot_ShouldReturnTrue_WhenTemperatureIsBelowThreshold()
+    public void SnowBot_ShouldBeActivated_WhenHumidityIsAboveThreshold()
     {
-        
-        var data = new WeatherInputData { Temperature = -5 };
+        // Arrange
+        var data = new WeatherData { Temperature = -5 };
         var snowBot = new SnowBot(0, "It's snowing!");
 
-        
+        // Act
         var result = snowBot.IsActivated(data);
 
-        
+        // Assert
         Assert.True(result);
     }
 
     [Fact]
     public void SunBot_ShouldPrintMessage_WhenTemperatureIsAboveThreshold()
     {
-        
-        var data = new WeatherInputData { Temperature = 30 };
+        // Arrange
+        var data = new WeatherData { Temperature = 30 };
         var sunBot = new SunBot(25, "It's sunny!");
 
-        
+        // Act
         using (var sw = new StringWriter())
         {
             Console.SetOut(sw);
-            sunBot.ActivateBot(data);
+            sunBot.Update(data);
 
-            
             var output = sw.ToString().Trim();
+
+            // Assert
             Assert.Contains("SunBot is activated", output);
             Assert.Contains("It's sunny!", output);
         }
     }
 
     [Fact]
-    public void SunBot_ShouldReturnTrue_WhenTemperatureIsAboveThreshold()
+    public void SunBot_ShouldBeActivated_WhenHumidityIsAboveThreshold()
     {
-        
-        var data = new WeatherInputData { Temperature = 30 };
+        // Arrange
+        var data = new WeatherData { Temperature = 30 };
         var sunBot = new SunBot(25, "It's sunny!");
 
-        
+        // Act
         var result = sunBot.IsActivated(data);
 
-        
+        // Assert
         Assert.True(result);
     }
+
 }

@@ -9,15 +9,16 @@ namespace Real_time_weather_monitoring_and_reporting_service
 {
     public interface IWeatherPublisher
     {
-        void RegisterObserver(IWeatherBot observer);
-        void NotifyObservers(WeatherInputData data); 
+        void RegisterObserver(IWeatherBotObserver observer);
+        void NotifyObservers(WeatherData data);
+        IList<IWeatherBotObserver> GetObservers(); 
     }
 
     public class WeatherPublisher : IWeatherPublisher
     {
-        private List<IWeatherBot> observers = new List<IWeatherBot>();
+        private List<IWeatherBotObserver> observers = new List<IWeatherBotObserver>();
 
-        public void RegisterObserver(IWeatherBot observer)
+        public void RegisterObserver(IWeatherBotObserver observer)
         {
             if (observer == null)
             {
@@ -27,12 +28,18 @@ namespace Real_time_weather_monitoring_and_reporting_service
             observers.Add(observer);
         }
 
-        public void NotifyObservers(WeatherInputData data)
+        public void NotifyObservers(WeatherData data)
         {
             foreach (var observer in observers)
             {
-                observer.ActivateBot(data);
+                observer.Update(data);
             }
         }
+
+        public IList<IWeatherBotObserver> GetObservers() 
+        {
+            return observers.AsReadOnly(); 
+        }
     }
+
 }

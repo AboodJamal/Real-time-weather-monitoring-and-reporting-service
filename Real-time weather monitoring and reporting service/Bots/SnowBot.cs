@@ -6,30 +6,36 @@ using System.Threading.Tasks;
 
 namespace Real_time_weather_monitoring_and_reporting_service.Bots
 {
-    public class SnowBot : IWeatherBot
+    public class SnowBot : IWeatherBotObserver
     {
         private double temperatureThreshold;
         private string message;
 
         public SnowBot(double temperatureThreshold, string message)
         {
-            temperatureThreshold = temperatureThreshold;
-            message = message;
+            this.temperatureThreshold = temperatureThreshold; 
+            this.message = message;
         }
 
-        public void ActivateBot(WeatherInputData data)  
+        public void Update(WeatherData data)
         {
             if (IsActivated(data))
             {
-                Console.WriteLine("SnowBot is activated!");
-                Console.WriteLine(message);
+                ActivateBot();
             }
         }
 
-        public bool IsActivated(WeatherInputData data)
+        private void ActivateBot()
         {
-            return data.Temperature < temperatureThreshold;
+            Console.WriteLine("SnowBot is activated!");
+            Console.WriteLine(this.message);
+        }
+
+        public bool IsActivated(WeatherData data)
+        {
+            return data.Temperature < this.temperatureThreshold;
         }
     }
+
 
 }
